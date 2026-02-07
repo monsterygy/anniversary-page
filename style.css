@@ -184,7 +184,8 @@ body {
 .photo-wall {
     position: relative;
     width: 100%;
-    height: 600px;
+    min-height: 600px;
+    height: auto;
     margin: 40px 0;
     max-width: 900px;
     margin-left: auto;
@@ -265,8 +266,9 @@ body {
 .photo-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .upload-hint {
@@ -584,7 +586,8 @@ body {
     }
 
     .photo-wall {
-        height: 480px;
+        min-height: 480px;
+        height: auto;
         max-width: 650px;
     }
 
@@ -679,7 +682,8 @@ body {
     }
 
     .photo-wall {
-        height: 420px;
+        min-height: 420px;
+        height: auto;
         max-width: 500px;
     }
 
