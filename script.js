@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initParticles();
     initHeartEffects();
     initPhotoClick();
-    initShareButtons();
 
     // 自动创建一些爱心
     setTimeout(() => {
@@ -75,7 +74,7 @@ function createPageSpecificEffects(sectionId) {
         case 'slide4': // 留言页面
             createHearts(3, '#slide4');
             break;
-        case 'slide5': // 分享页面
+        case 'slide5': // 感谢页面
             createHearts(10, '#slide5');
             break;
     }
@@ -287,75 +286,6 @@ function initPhotoClick() {
     });
 }
 
-// 初始化分享按钮
-function initShareButtons() {
-    const shareButtons = document.querySelectorAll('.share-btn');
-    shareButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            const title = document.title;
-            const url = window.location.href;
-            const encodedTitle = encodeURIComponent(title);
-            const encodedUrl = encodeURIComponent(url);
-            const text = encodedTitle + ' ' + encodedUrl;
-
-            let shareUrl = '';
-            const platform = this.classList.contains('weibo') ? 'weibo' :
-                           this.classList.contains('wechat') ? 'wechat' : 'douyin';
-
-            // 生成分享链接
-            if (platform === 'weibo') {
-                // 微博：先尝试自定义协议，失败则使用网页分享
-                const weiboAppUrl = `sinaweibo://share?content=${text}`;
-                const weiboWebUrl = `https://service.weibo.com/share/share.php?title=${encodedTitle}&url=${encodedUrl}`;
-
-                // 尝试自定义协议，设置超时回退到网页分享
-                window.location.href = weiboAppUrl;
-                setTimeout(() => {
-                    // 如果仍在当前页面，跳转到网页分享
-                    if (document.visibilityState !== 'hidden') {
-                        window.location.href = weiboWebUrl;
-                    }
-                }, 500);
-
-                createHearts(5, 'body');
-                return;
-            } else if (platform === 'wechat') {
-                // 微信朋友圈自定义协议
-                shareUrl = `weixin://dl/moments?content=${text}`;
-            } else if (platform === 'douyin') {
-                // 抖音：尝试多种协议
-                const douyinUrls = [
-                    `snssdk1128://share?url=${encodedUrl}`,
-                    `douyin://share?url=${encodedUrl}`,
-                    `https://www.douyin.com/share/video/?url=${encodedUrl}`
-                ];
-
-                // 尝试第一个协议
-                shareUrl = douyinUrls[0];
-                window.location.href = shareUrl;
-
-                // 设置超时检查
-                setTimeout(() => {
-                    if (document.visibilityState !== 'hidden') {
-                        // 尝试下一个协议
-                        window.location.href = douyinUrls[1];
-                    }
-                }, 300);
-
-                createHearts(5, 'body');
-                return;
-            }
-
-            // 尝试使用自定义协议打开应用
-            window.location.href = shareUrl;
-
-            // 创建分享效果爱心
-            createHearts(5, 'body');
-        });
-    });
-}
 
 // 窗口大小变化时重新计算
 window.addEventListener('resize', function() {

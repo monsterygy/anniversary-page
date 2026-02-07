@@ -336,51 +336,6 @@ body {
 }
 
 /* 页面5: 分享 */
-.share-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 40px 0;
-    flex-wrap: wrap;
-}
-
-.share-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 120px;
-    height: 120px;
-    border-radius: 25px;
-    text-decoration: none;
-    color: white;
-    font-size: 1.3rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.share-btn i {
-    font-size: 3rem;
-    margin-bottom: 10px;
-}
-
-.share-btn.weibo {
-    background: linear-gradient(145deg, #e6162d, #ff6b6b);
-}
-
-.share-btn.wechat {
-    background: linear-gradient(145deg, #07c160, #2ecc71);
-}
-
-.share-btn.douyin {
-    background: linear-gradient(145deg, #000000, #ff0050);
-}
-
-.share-btn:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
 
 .final-message {
     margin: 40px 0;
@@ -627,19 +582,6 @@ body {
         font-size: 1.3rem;
     }
 
-    .share-buttons {
-        gap: 20px;
-    }
-
-    .share-btn {
-        width: 100px;
-        height: 100px;
-        font-size: 1.1rem;
-    }
-
-    .share-btn i {
-        font-size: 2.5rem;
-    }
 
     .nav-dots {
         right: 15px;
@@ -714,15 +656,6 @@ body {
         right: 8%;
     }
 
-    .share-btn {
-        width: 85px;
-        height: 85px;
-        font-size: 1rem;
-    }
-
-    .share-btn i {
-        font-size: 2rem;
-    }
 }
 
 /* 页面标题通用样式 */
