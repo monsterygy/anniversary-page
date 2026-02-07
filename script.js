@@ -275,7 +275,8 @@ function initPhotoClick() {
     photoItems.forEach(item => {
         item.addEventListener('click', function() {
             const index = this.getAttribute('data-index');
-            alert(`点击了照片 ${index}！\n\n请将你的照片命名为 photo${index}.jpg 并放入 assets/images/ 文件夹中，然后替换HTML中的图片路径。`);
+            // 显示简单提示
+            console.log(`查看照片 ${index}`);
 
             // 添加点击效果
             this.style.transform = 'scale(0.95)';
@@ -293,10 +294,30 @@ function initShareButtons() {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
 
-            const platform = this.classList.contains('weibo') ? '微博' :
-                           this.classList.contains('wechat') ? '朋友圈' : '抖音';
+            const title = document.title;
+            const url = window.location.href;
+            const encodedTitle = encodeURIComponent(title);
+            const encodedUrl = encodeURIComponent(url);
+            const text = encodedTitle + ' ' + encodedUrl;
 
-            alert(`分享到${platform}功能需要在实际部署时配置。\n\n你可以修改分享链接指向你的页面URL。`);
+            let shareUrl = '';
+            const platform = this.classList.contains('weibo') ? 'weibo' :
+                           this.classList.contains('wechat') ? 'wechat' : 'douyin';
+
+            // 生成分享链接
+            if (platform === 'weibo') {
+                // 微博自定义协议
+                shareUrl = `sinaweibo://share?content=${text}`;
+            } else if (platform === 'wechat') {
+                // 微信朋友圈自定义协议
+                shareUrl = `weixin://dl/moments?content=${text}`;
+            } else if (platform === 'douyin') {
+                // 抖音自定义协议
+                shareUrl = `snssdk1128://share?url=${encodedUrl}`;
+            }
+
+            // 尝试使用自定义协议打开应用
+            window.location.href = shareUrl;
 
             // 创建分享效果爱心
             createHearts(5, 'body');
